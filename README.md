@@ -82,8 +82,8 @@ Each overlay carries its own `archive`, `tiles` and `page` fields, so the
 gallery card, the map attribution and the Sources row all name the right
 platform. Adding a third archive needs no code change.
 
-Base maps and services: OpenStreetMap, CARTO, Esri/Maxar, OpenTopoMap,
-Nominatim, Leaflet.
+Base maps and services: OpenStreetMap, Esri (streets, light/dark canvas,
+satellite), OpenTopoMap, Nominatim, Leaflet.
 
 ## Add a map
 

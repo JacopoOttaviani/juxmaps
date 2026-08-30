@@ -21,7 +21,7 @@
     overlay: null,     // active overlay object, or null
     mode: "fade",      // 'fade' | 'swipe'
     opacity: 0.75,
-    basemap: "carto-voyager",
+    basemap: "esri-street",
     anchorsOn: true,
     splitFrac: 0.5,    // swipe divider, 0..1 of map width
     baseLayer: null,
