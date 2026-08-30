@@ -314,6 +314,9 @@
 
     map = L.map("map", {
       zoomControl: false,
+      /* Wheel zoom hijacks page scrolling while the map is embedded in the
+         page; it comes back in fullscreen, where there is no page to scroll. */
+      scrollWheelZoom: false,
       minZoom: 3,
       maxZoom: 19,
       worldCopyJump: true
@@ -854,6 +857,7 @@
       var full = shell.classList.toggle("is-full");
       this.setAttribute("aria-pressed", full ? "true" : "false");
       document.body.style.overflow = full ? "hidden" : "";
+      if (full) map.scrollWheelZoom.enable(); else map.scrollWheelZoom.disable();
       setTimeout(function () { map.invalidateSize(); positionCurtain(); applyClip(); }, 60);
     });
 
