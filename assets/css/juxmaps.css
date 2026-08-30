@@ -155,7 +155,7 @@ html[data-theme="dark"] .jm-city[aria-pressed="true"] span{color:rgba(0,0,0,.55)
   position:relative;border-radius:var(--r-l);overflow:hidden;
   border:1px solid var(--rule);box-shadow:var(--shadow-m);background:var(--paper-2);
 }
-.jm-map{height:clamp(400px,66vh,720px);width:100%;background:var(--paper-2);z-index:1}
+.jm-map{height:clamp(500px,82.5vh,900px);width:100%;background:var(--paper-2);z-index:1}
 .jm-mapshell.is-full{position:fixed;inset:0;z-index:1000;border-radius:0;border:0}
 .jm-mapshell.is-full .jm-map{height:100vh;height:100dvh}
 
@@ -529,7 +529,7 @@ html[data-theme="dark"] .jm-card-on svg{stroke:#17150f}
   .jm-burger{display:grid;margin-left:auto}
   .jm-hero{padding:26px 0 16px}
   .jm-sec{padding:38px 0}
-  .jm-map{height:clamp(340px,58vh,520px)}
+  .jm-map{height:clamp(425px,72.5vh,650px)}
   .jm-stage-head{align-items:flex-start}
   .jm-coords{display:none}
   /* keep the dock to two compact rows so it does not eat the map */
