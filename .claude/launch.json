@@ -3,9 +3,15 @@
   "configurations": [
     {
       "name": "juxmaps",
-      "runtimeExecutable": "python",
+      "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8123"],
       "port": 8123
+    },
+    {
+      "name": "juxmaps-alt",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8124"],
+      "port": 8124
     }
   ]
 }
