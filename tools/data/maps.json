@@ -1,0 +1,960 @@
+{
+ "86349": {
+  "archive": "mw",
+  "title": "Agas map of London",
+  "px": [
+   4730,
+   2000
+  ],
+  "bbox": [
+   -0.1519639,
+   51.4913421,
+   -0.0614144,
+   51.5396963
+  ],
+  "center": [
+   51.515519,
+   -0.106689
+  ],
+  "thumb": "https://mapwarper.net/uploads/86349/thumb/Civitas_Londinium_or_The_Agas_Map_of_London.png",
+  "max_zoom": 18
+ },
+ "78149": {
+  "archive": "mw",
+  "title": "Hollar map of 17th Century London",
+  "px": [
+   5500,
+   4382
+  ],
+  "bbox": [
+   -0.1487894,
+   51.4869016,
+   -0.0389668,
+   51.5347837
+  ],
+  "center": [
+   51.510843,
+   -0.093878
+  ],
+  "thumb": "https://mapwarper.net/uploads/78149/thumb/17th_century_map_of_London__28W.Hollar_29_ogkdvzax.png",
+  "max_zoom": 18
+ },
+ "107905": {
+  "archive": "mw",
+  "title": "London 1746",
+  "px": [
+   29999,
+   16175
+  ],
+  "bbox": [
+   -0.1705754,
+   51.4831722,
+   -0.0058894,
+   51.5357303
+  ],
+  "center": [
+   51.509451,
+   -0.088232
+  ],
+  "thumb": "https://mapwarper.net/uploads/107905/thumb/MAP_OF_LONDON__John_Rocque___John_Pine_1737-1746__Fusion_of_all_24_parts__Lord_Henfield__2nd_Edition_2022.png",
+  "max_zoom": 18
+ },
+ "91174": {
+  "archive": "mw",
+  "title": "London 1835",
+  "px": [
+   22702,
+   15583
+  ],
+  "bbox": [
+   -0.2010774,
+   51.4591744,
+   0.0160426,
+   51.5534587
+  ],
+  "center": [
+   51.506317,
+   -0.092517
+  ],
+  "thumb": "https://mapwarper.net/uploads/91174/thumb/10242002.png",
+  "max_zoom": 18
+ },
+ "55847": {
+  "archive": "mw",
+  "title": "Stanford's Library Map of London and Its Suburbs. 24 Sheets. On the Scale of Six Inches to a Mile. London: Edward Stanford, 55, Charing Cross, S.W.",
+  "px": [
+   19978,
+   22673
+  ],
+  "bbox": [
+   -0.2381556,
+   51.4014502,
+   0.016803,
+   51.5848513
+  ],
+  "center": [
+   51.493151,
+   -0.110676
+  ],
+  "thumb": "https://mapwarper.net/uploads/55847/thumb/10158007.png",
+  "max_zoom": 18
+ },
+ "31741": {
+  "archive": "mw",
+  "title": "Charles Booth - London - Poverty Map",
+  "px": [
+   5882,
+   4374
+  ],
+  "bbox": [
+   -0.0950553,
+   51.5030984,
+   -0.0171571,
+   51.5397597
+  ],
+  "center": [
+   51.521429,
+   -0.056106
+  ],
+  "thumb": "https://mapwarper.net/uploads/31741/thumb/10169000.png",
+  "max_zoom": 18
+ },
+ "87796": {
+  "archive": "mw",
+  "title": "Paris 1550 Truschet and Hoyau",
+  "px": [
+   10890,
+   7820
+  ],
+  "bbox": [
+   2.324373,
+   48.8303545,
+   2.3801459,
+   48.875852
+  ],
+  "center": [
+   48.853103,
+   2.352259
+  ],
+  "thumb": "https://mapwarper.net/uploads/87796/thumb/Map_of_Paris_by_Truschet_and_Hoyau_-_Basel_University_Library.png",
+  "max_zoom": 18
+ },
+ "12785": {
+  "archive": "mw",
+  "title": "Plan routier de la ville de Paris et de ses faubourgs 3",
+  "px": [
+   13127,
+   9744
+  ],
+  "bbox": [
+   2.2841178,
+   48.828281,
+   2.4042474,
+   48.888802
+  ],
+  "center": [
+   48.858542,
+   2.344183
+  ],
+  "thumb": "https://mapwarper.net/uploads/12785/thumb/1809_Charles_Picquet_Paris_et_ses_faubourgs.png",
+  "max_zoom": 18
+ },
+ "84310": {
+  "archive": "mw",
+  "title": "Paris 1823",
+  "px": [
+   14427,
+   8798
+  ],
+  "bbox": [
+   2.2606009,
+   48.827051,
+   2.412866,
+   48.8892497
+  ],
+  "center": [
+   48.85815,
+   2.336733
+  ],
+  "thumb": "https://mapwarper.net/uploads/84310/thumb/master-gmd-gmd5-g5834-g5834p-ct003571.png",
+  "max_zoom": 18
+ },
+ "21113": {
+  "archive": "mw",
+  "title": "Paris Jacoubet 1840 - updated",
+  "px": [
+   8599,
+   6238
+  ],
+  "bbox": [
+   2.2804367,
+   48.8282209,
+   2.4061441,
+   48.8885408
+  ],
+  "center": [
+   48.858381,
+   2.34329
+  ],
+  "thumb": "https://mapwarper.net/uploads/21113/thumb/Jacoubet1840-Gallica-FINAL.png",
+  "max_zoom": 18
+ },
+ "79748": {
+  "archive": "mw",
+  "title": "Paris 1860",
+  "px": [
+   12361,
+   8945
+  ],
+  "bbox": [
+   2.2779189,
+   48.8212265,
+   2.4174007,
+   48.8898005
+  ],
+  "center": [
+   48.855514,
+   2.34766
+  ],
+  "thumb": "https://mapwarper.net/uploads/79748/thumb/4807020.png",
+  "max_zoom": 18
+ },
+ "108484": {
+  "archive": "mw",
+  "title": "Barricades de la Commune de Paris 1871",
+  "px": [
+   11025,
+   8618
+  ],
+  "bbox": [
+   2.2432443,
+   48.8087349,
+   2.4312265,
+   48.9056868
+  ],
+  "center": [
+   48.857211,
+   2.337235
+  ],
+  "thumb": "https://mapwarper.net/uploads/108484/thumb/Plan_de_Paris_avec_indication_exacte_des_Maisons_et_Monuments_incendi%C3%A9es__sic___des_Batteries_et_Barricades_construites_en_Mai_1871_et_num%C3%A9rotage_des_Bastions_de_l_Enceinte_-_btv1b8494157x.png",
+  "max_zoom": 18
+ },
+ "42336": {
+  "archive": "mw",
+  "title": "Bufalini - map of Rome 3",
+  "px": [
+   3898,
+   3731
+  ],
+  "bbox": [
+   12.4428675,
+   41.8579801,
+   12.546997,
+   41.9251496
+  ],
+  "center": [
+   41.891565,
+   12.494932
+  ],
+  "thumb": "https://mapwarper.net/uploads/42336/thumb/Bufalini_-_stitched_-_flattened__kl_1.png",
+  "max_zoom": 18
+ },
+ "9175": {
+  "archive": "mw",
+  "title": "Rome (Nolli)",
+  "px": [
+   8313,
+   7000
+  ],
+  "bbox": [
+   12.4413659,
+   41.8626281,
+   12.5268237,
+   41.9211831
+  ],
+  "center": [
+   41.891906,
+   12.484095
+  ],
+  "thumb": "https://mapwarper.net/uploads/9175/thumb/nolli-rome-melville-map.png",
+  "max_zoom": 18
+ },
+ "106493": {
+  "archive": "mw",
+  "title": "Pianta topografica di Roma e suoi contorni, Direzione Generale del Censo, 1866",
+  "px": [
+   19150,
+   14490
+  ],
+  "bbox": [
+   12.442781,
+   41.8712892,
+   12.5220302,
+   41.9143866
+  ],
+  "center": [
+   41.892838,
+   12.482406
+  ],
+  "thumb": "https://mapwarper.net/uploads/106493/thumb/11956000.png",
+  "max_zoom": 18
+ },
+ "85774": {
+  "archive": "mw",
+  "title": "Rome 1883",
+  "px": [
+   9060,
+   6415
+  ],
+  "bbox": [
+   12.4315672,
+   41.8613368,
+   12.5422361,
+   41.9212525
+  ],
+  "center": [
+   41.891295,
+   12.486902
+  ],
+  "thumb": "https://mapwarper.net/uploads/85774/thumb/Rome_1883.png",
+  "max_zoom": 18
+ },
+ "108397": {
+  "archive": "mw",
+  "title": "Rome en 1889",
+  "px": [
+   7379,
+   5826
+  ],
+  "bbox": [
+   12.4342796,
+   41.8658572,
+   12.5312636,
+   41.9229722
+  ],
+  "center": [
+   41.894415,
+   12.482772
+  ],
+  "thumb": "https://mapwarper.net/uploads/108397/thumb/Rome_1889_copie.png",
+  "max_zoom": 18
+ },
+ "67999": {
+  "archive": "mw",
+  "title": "Rome 1944",
+  "px": [
+   4888,
+   5778
+  ],
+  "bbox": [
+   12.4481823,
+   41.8615846,
+   12.543989,
+   41.9450038
+  ],
+  "center": [
+   41.903294,
+   12.496086
+  ],
+  "thumb": "https://mapwarper.net/uploads/67999/thumb/roma1944_utex.png",
+  "max_zoom": 18
+ },
+ "105894": {
+  "archive": "mw",
+  "title": "Istanbul Map 1890s",
+  "px": [
+   23450,
+   13434
+  ],
+  "bbox": [
+   28.889538,
+   40.9710232,
+   29.0872259,
+   41.056606
+  ],
+  "center": [
+   41.013815,
+   28.988382
+  ],
+  "thumb": "https://mapwarper.net/uploads/105894/thumb/30._1890s.png",
+  "max_zoom": 18
+ },
+ "52663": {
+  "archive": "mw",
+  "title": "Istanbul 1912-13 Map, December 2020",
+  "px": [
+   12000,
+   9728
+  ],
+  "bbox": [
+   28.9036274,
+   40.9821496,
+   29.0552463,
+   41.0682053
+  ],
+  "center": [
+   41.025177,
+   28.979437
+  ],
+  "thumb": "https://mapwarper.net/uploads/52663/thumb/o122419225-A.Sueda_Yilmaz.png",
+  "max_zoom": 14
+ },
+ "81836": {
+  "archive": "mw",
+  "title": "1917 Istanbul",
+  "px": [
+   14480,
+   12034
+  ],
+  "bbox": [
+   28.8928115,
+   40.9335619,
+   29.0787641,
+   41.0500614
+  ],
+  "center": [
+   40.991812,
+   28.985788
+  ],
+  "thumb": "https://mapwarper.net/uploads/81836/thumb/nla.obj-2971954557.png",
+  "max_zoom": 18
+ },
+ "101822": {
+  "archive": "mw",
+  "title": "Map of Istanbul by Necip Bey",
+  "px": [
+   8349,
+   7864
+  ],
+  "bbox": [
+   28.8812648,
+   40.945512,
+   29.1014887,
+   41.1048632
+  ],
+  "center": [
+   41.025188,
+   28.991377
+  ],
+  "thumb": "https://mapwarper.net/uploads/101822/thumb/6a6vgbov20271.png",
+  "max_zoom": 18
+ },
+ "49587": {
+  "archive": "mw",
+  "title": "1922- Istanbul",
+  "px": [
+   7284,
+   5043
+  ],
+  "bbox": [
+   28.8737531,
+   40.9725482,
+   29.0804503,
+   41.0979239
+  ],
+  "center": [
+   41.035236,
+   28.977102
+  ],
+  "thumb": "https://mapwarper.net/uploads/49587/thumb/1922-_harita.png",
+  "max_zoom": 18
+ },
+ "91816": {
+  "archive": "mw",
+  "title": "Jerusalem 1815",
+  "px": [
+   3893,
+   5099
+  ],
+  "bbox": [
+   35.2023955,
+   31.7319329,
+   35.2674923,
+   31.8081437
+  ],
+  "center": [
+   31.770038,
+   35.234944
+  ],
+  "thumb": "https://mapwarper.net/uploads/91816/thumb/0497010.png",
+  "max_zoom": 18
+ },
+ "91812": {
+  "archive": "mw",
+  "title": "Jerusalem 1901",
+  "px": [
+   2291,
+   1873
+  ],
+  "bbox": [
+   35.2198372,
+   31.7650542,
+   35.2480322,
+   31.7853143
+  ],
+  "center": [
+   31.775184,
+   35.233935
+  ],
+  "thumb": "https://mapwarper.net/uploads/91812/thumb/Jerusalem1901.png",
+  "max_zoom": 18
+ },
+ "39933": {
+  "archive": "mw",
+  "title": "Jerusalem 1917",
+  "px": [
+   10091,
+   7744
+  ],
+  "bbox": [
+   35.1830576,
+   31.7512355,
+   35.261917,
+   31.8317202
+  ],
+  "center": [
+   31.791478,
+   35.222487
+  ],
+  "thumb": "https://mapwarper.net/uploads/39933/thumb/Environs_of_Jerusalem-NLI.png",
+  "max_zoom": 18
+ },
+ "39934": {
+  "archive": "mw",
+  "title": "Jerusalem 1947",
+  "px": [
+   2347,
+   4388
+  ],
+  "bbox": [
+   35.2082462,
+   31.7468737,
+   35.2409316,
+   31.7994175
+  ],
+  "center": [
+   31.773146,
+   35.224589
+  ],
+  "thumb": "https://mapwarper.net/uploads/39934/thumb/Jerusalem_Reproduced_and_printed_by_survey_of_Palestine.png",
+  "max_zoom": 18
+ },
+ "38596": {
+  "archive": "mw",
+  "title": "Cape Town South Africa 1880",
+  "px": [
+   990,
+   990
+  ],
+  "bbox": [
+   18.3890532,
+   -33.9535683,
+   18.454157,
+   -33.8988983
+  ],
+  "center": [
+   -33.926233,
+   18.421605
+  ],
+  "thumb": "https://mapwarper.net/uploads/38596/thumb/Cape_town_1880s.png",
+  "max_zoom": 14
+ },
+ "7100": {
+  "archive": "wm",
+  "title": "File:Admiralty Chart No 636 The Cape of Good Hope and False Bay, Published 1870, New Edition 1921.jpg",
+  "px": [
+   16175,
+   16599
+  ],
+  "bbox": [
+   17.9582664,
+   -34.5016062,
+   18.8915003,
+   -33.7110948
+  ],
+  "center": [
+   -34.10635,
+   18.424883
+  ],
+  "thumb": "",
+  "max_zoom": 15
+ },
+ "5873": {
+  "archive": "wm",
+  "title": "File:Admiralty Chart No 123 Table Bay Docks and Approaches, Published 1943.jpg",
+  "px": [
+   11065,
+   16271
+  ],
+  "bbox": [
+   18.4159574,
+   -33.931113,
+   18.4541818,
+   -33.8851052
+  ],
+  "center": [
+   -33.908109,
+   18.43507
+  ],
+  "thumb": "",
+  "max_zoom": 18
+ },
+ "4555": {
+  "archive": "wm",
+  "title": "File:Admiralty Chart No 1920 Table Bay, Published 1966.jpg",
+  "px": [
+   11238,
+   16397
+  ],
+  "bbox": [
+   18.3090894,
+   -33.9796799,
+   18.5428475,
+   -33.6932923
+  ],
+  "center": [
+   -33.836486,
+   18.425968
+  ],
+  "thumb": "",
+  "max_zoom": 16
+ },
+ "39408": {
+  "archive": "mw",
+  "title": "Bombay 1827",
+  "px": [
+   11300,
+   6000
+  ],
+  "bbox": [
+   72.8228755,
+   18.9211677,
+   72.8419139,
+   18.9506259
+  ],
+  "center": [
+   18.935897,
+   72.832395
+  ],
+  "thumb": "https://mapwarper.net/uploads/39408/thumb/1827_BOMBAY_FORT.png",
+  "max_zoom": 18
+ },
+ "42741": {
+  "archive": "mw",
+  "title": "Map of the Native Town of Bombay 1855",
+  "px": [
+   12629,
+   10696
+  ],
+  "bbox": [
+   72.8105052,
+   18.9353227,
+   72.8527185,
+   18.9784713
+  ],
+  "center": [
+   18.956897,
+   72.831612
+  ],
+  "thumb": "https://mapwarper.net/uploads/42741/thumb/1855_Native_Town.png",
+  "max_zoom": 18
+ },
+ "34127": {
+  "archive": "mw",
+  "title": "Bombay 1919",
+  "px": [
+   8221,
+   15000
+  ],
+  "bbox": [
+   72.7899736,
+   18.888886,
+   72.8844813,
+   19.0547354
+  ],
+  "center": [
+   18.971811,
+   72.837227
+  ],
+  "thumb": "https://mapwarper.net/uploads/34127/thumb/Bombay1919.png",
+  "max_zoom": 18
+ },
+ "54898": {
+  "archive": "mw",
+  "title": "Bombay 1931",
+  "px": [
+   4547,
+   6114
+  ],
+  "bbox": [
+   72.7662125,
+   18.8872974,
+   72.9029496,
+   19.0559159
+  ],
+  "center": [
+   18.971607,
+   72.834581
+  ],
+  "thumb": "https://mapwarper.net/uploads/54898/thumb/bombay_001.png",
+  "max_zoom": 18
+ },
+ "29682": {
+  "archive": "mw",
+  "title": "Bombay Guide Map including Part of Salsette Island 1933",
+  "px": [
+   4531,
+   6000
+  ],
+  "bbox": [
+   72.7664194,
+   18.8768984,
+   72.9683671,
+   19.1232713
+  ],
+  "center": [
+   19.000085,
+   72.867393
+  ],
+  "thumb": "https://mapwarper.net/uploads/29682/thumb/mumbai.png",
+  "max_zoom": 18
+ },
+ "30271": {
+  "archive": "mw",
+  "title": "Plan General de la Ciudad de Mexico (Colored)",
+  "px": [
+   8913,
+   7968
+  ],
+  "bbox": [
+   -99.1630865,
+   19.4117462,
+   -99.1130469,
+   19.4655433
+  ],
+  "center": [
+   19.438645,
+   -99.138067
+  ],
+  "thumb": "https://mapwarper.net/uploads/30271/thumb/blac_M_972_53_1793_mexicocity_color.png",
+  "max_zoom": 18
+ },
+ "60811": {
+  "archive": "mw",
+  "title": "Mexico City 1886",
+  "px": [
+   2373,
+   1769
+  ],
+  "bbox": [
+   -99.1691638,
+   19.4148776,
+   -99.1121527,
+   19.4566425
+  ],
+  "center": [
+   19.43576,
+   -99.140658
+  ],
+  "thumb": "https://mapwarper.net/uploads/60811/thumb/11149000.png",
+  "max_zoom": 18
+ },
+ "70242": {
+  "archive": "mw",
+  "title": "Plano de la Ciudad de Mexico Que Indica Las Calles Donde Hay Atarjeas 1894",
+  "px": [
+   19271,
+   13929
+  ],
+  "bbox": [
+   -99.177658,
+   19.4171864,
+   -99.1150272,
+   19.4595096
+  ],
+  "center": [
+   19.438348,
+   -99.146343
+  ],
+  "thumb": "https://mapwarper.net/uploads/70242/thumb/Plano_de_la_Ciudad_de_Mexico_Que_Indica_Las_Calles_Donde_Hay_Atarjeas_1894.png",
+  "max_zoom": 18
+ },
+ "82837": {
+  "archive": "mw",
+  "title": "Plano de la Ciudad de Mexico",
+  "px": [
+   4127,
+   3150
+  ],
+  "bbox": [
+   -99.2110187,
+   19.3839066,
+   -99.1068997,
+   19.4637905
+  ],
+  "center": [
+   19.423849,
+   -99.158959
+  ],
+  "thumb": "https://mapwarper.net/uploads/82837/thumb/plano_de_la_ciudad_de_mexico_1907_larger.png",
+  "max_zoom": 18
+ },
+ "71780": {
+  "archive": "mw",
+  "title": "Mexico City 1955",
+  "px": [
+   6177,
+   8999
+  ],
+  "bbox": [
+   -99.2457759,
+   19.2613828,
+   -99.0604295,
+   19.5170676
+  ],
+  "center": [
+   19.389225,
+   -99.153103
+  ],
+  "thumb": "https://mapwarper.net/uploads/71780/thumb/default_jdtbsnqi.png",
+  "max_zoom": 18
+ },
+ "77661": {
+  "archive": "mw",
+  "title": "Lisboa 1650",
+  "desc": "Lisboa map in 1650",
+  "date": "1650",
+  "source": "https://www.museudelisboa.pt/pt/colecoes/desenho/plan-de-la-ville-de-lisbonne-en-1650-existant-aux-archives-municipales",
+  "px": [
+   4220,
+   3203
+  ],
+  "bbox": [
+   -9.1476594,
+   38.700672,
+   -9.1227549,
+   38.7201281
+  ],
+  "center": [
+   38.7104,
+   -9.135207
+  ],
+  "thumb": "https://mapwarper.net/uploads/77661/thumb/tinoco-clean-grayscale.png",
+  "max_zoom": 19
+ },
+ "78043": {
+  "archive": "mw",
+  "title": "Lisboa de outros tempos",
+  "desc": "Lisboa in 1650 as remapped by \r\nMário Xavier de Brito :\r\nhttps://hemerotecadigital.cm-lisboa.pt/OBRAS/RevMunicipal/N56/N56_master/JPG/N56_0048_branca_t0.jpg",
+  "date": "1650",
+  "source": "https://hemerotecadigital.cm-lisboa.pt/OBRAS/RevMunicipal/N56/N56_item1/P48.html",
+  "px": [
+   1790,
+   1200
+  ],
+  "bbox": [
+   -9.1487092,
+   38.704005,
+   -9.120889,
+   38.7216431
+  ],
+  "center": [
+   38.712824,
+   -9.134799
+  ],
+  "thumb": "https://mapwarper.net/uploads/78043/thumb/N56_0048_branca_t0_wcbrmzjd.png",
+  "max_zoom": 19
+ },
+ "157": {
+  "archive": "wm",
+  "title": "File:Plano geral da cidade de Lisboa em 1812.jpg",
+  "desc": "From: https://commons.wikimedia.org/wiki/File:Plano_geral_da_cidade_de_Lisboa_em_1812.jpg",
+  "date": "1812",
+  "source": "https://commons.wikimedia.org/wiki/File:Plano_geral_da_cidade_de_Lisboa_em_1812.jpg",
+  "px": [
+   1263,
+   899
+  ],
+  "bbox": [
+   -9.183987938111763,
+   38.69277075494134,
+   -9.10903597797321,
+   38.73856919335047
+  ],
+  "center": [
+   38.71567,
+   -9.146512
+  ],
+  "thumb": "",
+  "max_zoom": 19
+ },
+ "5795": {
+  "archive": "wm",
+  "title": "File:Admiralty Chart No 89 Entrance to the Tagus and Lisbon Harbour, Published 1871.jpg",
+  "desc": "From: https://commons.wikimedia.org/wiki/File:Admiralty_Chart_No_89_Entrance_to_the_Tagus_and_Lisbon_Harbour,_Published_1871.jpg",
+  "date": "",
+  "source": "https://commons.wikimedia.org/wiki/File:Admiralty_Chart_No_89_Entrance_to_the_Tagus_and_Lisbon_Harbour,_Published_1871.jpg",
+  "px": [
+   15117,
+   8034
+  ],
+  "bbox": [
+   -9.5030427,
+   38.5693231,
+   -9.0309471,
+   38.7662516
+  ],
+  "center": [
+   38.667787,
+   -9.266995
+  ],
+  "thumb": "",
+  "max_zoom": 19
+ },
+ "22024": {
+  "archive": "mw",
+  "title": "Lisbon",
+  "desc": "",
+  "date": "",
+  "source": "",
+  "px": [
+   21260,
+   12117
+  ],
+  "bbox": [
+   -9.2164079,
+   38.6911038,
+   -9.1053498,
+   38.7406351
+  ],
+  "center": [
+   38.715869,
+   -9.160879
+  ],
+  "thumb": "https://mapwarper.net/uploads/22024/thumb/Grelha-300DPI_reduzida.png",
+  "max_zoom": 19
+ },
+ "6096": {
+  "archive": "wm",
+  "title": "File:Admiralty Chart No 3264 Port of Lisbon, Published 1971.jpg",
+  "desc": "From: https://commons.wikimedia.org/wiki/File:Admiralty_Chart_No_3264_Port_of_Lisbon,_Published_1971.jpg",
+  "date": "",
+  "source": "https://commons.wikimedia.org/wiki/File:Admiralty_Chart_No_3264_Port_of_Lisbon,_Published_1971.jpg",
+  "px": [
+   16473,
+   11254
+  ],
+  "bbox": [
+   -9.250459,
+   38.6316571,
+   -8.9486463,
+   38.792042
+  ],
+  "center": [
+   38.71185,
+   -9.099553
+  ],
+  "thumb": "",
+  "max_zoom": 19
+ }
+}

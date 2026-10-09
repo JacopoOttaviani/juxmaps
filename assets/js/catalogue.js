@@ -297,6 +297,102 @@ const JUX_CITIES = [
     ]
   },
   {
+    id:"lisbon", name:"Lisbon", country:"Portugal",
+    center:[38.70588,-9.15984], zoom:13,
+    blurb:"Tinoco’s 1650 plan to the modern port, across the earthquake that erased the old city and the docks that pushed back the river.",
+    story:"Lisbon’s break is 1755. The earthquake, fire and tsunami destroyed the Baixa, and Pombal’s engineers rebuilt it on a grid that ignored the old streets: slide between the 1650 Tinoco plan and the 1812 sheet and the medieval lanes between the castle and the river are replaced by straight blocks. The castle, the Sé and the Carmo convent sit still through all of it — the Carmo as a roofless ruin after 1755. The riverfront is the line not to trust. The Aterro da Boavista (1858–65) and the port works from 1887 filled in the Tagus foreshore west of the Praça do Comércio, so the two Admiralty charts disagree about where the water is.",
+    anchors:[
+      { name:"Castelo de São Jorge", kind:"built", lat:38.7139258, lon:-9.133483, since:1100, note:"Moorish hilltop citadel, taken in 1147; its walls have kept their line on every sheet.", caution:"" },
+      { name:"Sé de Lisboa", kind:"built", lat:38.7098185, lon:-9.1328001, since:1147, note:"Begun 1147, just after the conquest; it came through the 1755 earthquake with its towers standing.", caution:"" },
+      { name:"Praça do Comércio", kind:"built", lat:38.7077151, lon:-9.1365238, since:1500, note:"The riverside palace square (Terreiro do Paço) from c.1500; rebuilt as the Pombaline square after 1755.", caution:"" },
+      { name:"Rossio", kind:"built", lat:38.7137564, lon:-9.1393431, since:1300, note:"The city’s main square since the Middle Ages; the Pombaline grid was laid out around it after 1755.", caution:"" },
+      { name:"Convento do Carmo", kind:"built", lat:38.712006, lon:-9.1405862, since:1389, note:"Founded 1389. The church lost its roof in the 1755 earthquake and was left as a ruin — it stands whole on the 1650 sheet.", caution:"" },
+      { name:"Mosteiro dos Jerónimos", kind:"built", lat:38.6977531, lon:-9.2055912, since:1501, note:"Begun 1501 at Belém, well west of the walled city; it fixes the western sheets.", caution:"" },
+      { name:"Torre de Belém", kind:"built", lat:38.691586, lon:-9.2159288, since:1519, note:"Finished 1519 on an islet in the river; the shore has since advanced to meet it.", caution:"" },
+      { name:"Doca de Alcântara", kind:"water", lat:38.7005088, lon:-9.174486, since:0, note:"The 1887 docks, dug into reclaimed riverbed. On the 1650 and 1812 sheets this is open water.", caution:"Built from 1887 on filled riverbed — the Tagus shoreline here moved several hundred metres. Not a control point." }
+    ],
+    overlays:[
+      {
+        id:"77661", year:1650, label:"1650", dated:true,
+        title:"Planta de Lisboa em 1650 (the Tinoco plan)",
+        by:"After João Nunes Tinoco; Museu de Lisboa copy",
+        note:"The earliest measured plan of the city, a century before the 1755 earthquake and the Pombaline rebuild flattened the Baixa.",
+        recordTitle:"Lisboa 1650",
+        archive:"Map Warper",
+        tiles:"https://mapwarper.net/maps/tile/77661/{z}/{x}/{y}.png",
+        page:"https://mapwarper.net/maps/77661",
+        thumb:"https://mapwarper.net/uploads/77661/thumb/tinoco-clean-grayscale.png",
+        bounds:[[38.700672,-9.1476594],[38.7201281,-9.1227549]],
+        center:[38.7104,-9.135207], maxNativeZoom:17, px:[4220,3203]
+      },
+      {
+        id:"78043", year:1650, label:"1650", dated:true,
+        title:"Lisboa em 1650, redrawn",
+        by:"Mário Xavier de Brito, after Tinoco (Revista Municipal)",
+        note:"A 20th-century clean redrawing of the Tinoco plan — far easier to read than the original. Use it to decode the sheet above, not as independent evidence.",
+        recordTitle:"Lisboa de outros tempos",
+        archive:"Map Warper",
+        tiles:"https://mapwarper.net/maps/tile/78043/{z}/{x}/{y}.png",
+        page:"https://mapwarper.net/maps/78043",
+        thumb:"https://mapwarper.net/uploads/78043/thumb/N56_0048_branca_t0_wcbrmzjd.png",
+        bounds:[[38.704005,-9.1487092],[38.7216431,-9.120889]],
+        center:[38.712824,-9.134799], maxNativeZoom:16, px:[1790,1200]
+      },
+      {
+        id:"157", year:1812, label:"c.1812", dated:true,
+        title:"Plano geral da cidade de Lisboa em 1812",
+        by:"Biblioteca Nacional de Portugal, via Wikimedia Commons",
+        note:"Post-earthquake Lisbon: the Pombaline grid is in place and the city still ends near Alcântara. A small scan — it runs out of detail at about zoom 14.",
+        recordTitle:"File:Plano geral da cidade de Lisboa em 1812.jpg",
+        archive:"Wikimaps Warper",
+        tiles:"https://warper.wmflabs.org/maps/tile/157/{z}/{x}/{y}.png",
+        page:"https://warper.wmflabs.org/maps/157",
+        thumb:"",
+        bounds:[[38.69277075494134,-9.183987938111763],[38.73856919335047,-9.10903597797321]],
+        center:[38.71567,-9.146512], maxNativeZoom:14, px:[1263,899]
+      },
+      {
+        id:"5795", year:1871, label:"1871", dated:true,
+        title:"Admiralty Chart 89: Entrance to the Tagus and Lisbon Harbour",
+        by:"British Admiralty, via Wikimedia Commons",
+        note:"The estuary from the bar at the river mouth up to the city: soundings, forts and the shoreline before the port works began in 1887.",
+        recordTitle:"File:Admiralty Chart No 89 Entrance to the Tagus and Lisbon Harbour, Published 1871.jpg",
+        archive:"Wikimaps Warper",
+        tiles:"https://warper.wmflabs.org/maps/tile/5795/{z}/{x}/{y}.png",
+        page:"https://warper.wmflabs.org/maps/5795",
+        thumb:"",
+        bounds:[[38.5693231,-9.5030427],[38.7662516,-9.0309471]],
+        center:[38.667787,-9.266995], maxNativeZoom:15, px:[15117,8034]
+      },
+      {
+        id:"22024", year:1911, label:"undated", dated:false,
+        title:"Lisbon, assembled survey sheets",
+        by:"Publisher not stated in the record",
+        note:"Carries no date or source in the record. The coloured 1:1000 sheets and their grid match the municipal survey of 1904–11; placed here by style, not evidence. The black areas are the scan’s margins outside the sheet grid, not the map.",
+        recordTitle:"Lisbon",
+        archive:"Map Warper",
+        tiles:"https://mapwarper.net/maps/tile/22024/{z}/{x}/{y}.png",
+        page:"https://mapwarper.net/maps/22024",
+        thumb:"https://mapwarper.net/uploads/22024/thumb/Grelha-300DPI_reduzida.png",
+        bounds:[[38.6911038,-9.2164079],[38.7406351,-9.1053498]],
+        center:[38.715869,-9.160879], maxNativeZoom:18, px:[21260,12117]
+      },
+      {
+        id:"6096", year:1971, label:"1971", dated:true,
+        title:"Admiralty Chart 3264: Port of Lisbon",
+        by:"British Admiralty, via Wikimedia Commons",
+        note:"The modern port: Alcântara and Santos docks on filled riverbed, and the 1966 bridge across the Tagus. Set it against 1871 and the shoreline has moved.",
+        recordTitle:"File:Admiralty Chart No 3264 Port of Lisbon, Published 1971.jpg",
+        archive:"Wikimaps Warper",
+        tiles:"https://warper.wmflabs.org/maps/tile/6096/{z}/{x}/{y}.png",
+        page:"https://warper.wmflabs.org/maps/6096",
+        thumb:"",
+        bounds:[[38.6316571,-9.250459],[38.792042,-8.9486463]],
+        center:[38.71185,-9.099553], maxNativeZoom:16, px:[16473,11254]
+      }
+    ]
+  },
+  {
     id:"istanbul", name:"Istanbul", country:"Türkiye",
     center:[41.02067,28.9752], zoom:13,
     blurb:"Late-Ottoman Istanbul through the Balkan Wars, the First World War and the end of empire.",

@@ -3,7 +3,7 @@
 An interactive, mobile-friendly tool for laying **georeferenced historical maps** over the
 present-day map of a city. Built for researchers, journalists and curious readers.
 
-Eight cities, 41 historical sheets, 1550–1966.
+Nine cities, 47 historical sheets, 1550–1971.
 
 ---
 
@@ -29,7 +29,7 @@ fingerprint the filenames.
 
 ## What it does
 
-- **Eight cities** — London, Paris, Rome, Istanbul, Jerusalem, Cape Town, Mumbai, Mexico City.
+- **Nine cities** — London, Paris, Rome, Lisbon, Istanbul, Jerusalem, Cape Town, Mumbai, Mexico City.
 - **Fade** an old map in and out over the modern one, or **Swipe** a draggable
   curtain across the screen (`Then` on the left, `Now` on the right).
 - **Seven base maps** — Voyager, light, dark, OpenStreetMap, satellite imagery,
@@ -57,7 +57,9 @@ assets/css/juxmaps.css      design tokens, layout, light + dark themes
 assets/js/catalogue.js      GENERATED — cities, overlays, anchors, base maps
 assets/js/app.js            map logic, comparison modes, gallery, routing
 assets/vendor/leaflet/      Leaflet 1.9.4, vendored
-tools/gen_catalogue.py      regenerates catalogue.js from source APIs
+tools/gen_catalogue.py      regenerates catalogue.js; holds the editorial dictionaries
+tools/data/maps.json        MEASURED — one record per sheet, read from the archives' APIs
+tools/data/anchors.json     MEASURED — reference-point coordinates, resolved by Nominatim
 ```
 
 ### Regenerating the catalogue
@@ -65,18 +67,31 @@ tools/gen_catalogue.py      regenerates catalogue.js from source APIs
 `assets/js/catalogue.js` is generated, not hand-written, so that no coordinate
 is ever transcribed by hand. Measured fields (bounding boxes, centres, scan
 dimensions, thumbnails, usable zoom ranges) come from the archives' APIs;
-anchor coordinates come from OpenStreetMap Nominatim. Titles, notes and the
-choice of anchors are editorial and live in the `ED`, `CITY` and `ANOTE`
-dictionaries inside the generator.
+anchor coordinates come from OpenStreetMap Nominatim. Both are cached in
+`tools/data/`, which is committed, so the catalogue rebuilds offline:
+
+```bash
+python3 tools/gen_catalogue.py
+```
+
+Titles, notes, the choice of sheets and the choice of anchors are editorial
+and live in the `ED`, `CITY`, `KEEP`, `ANCHORS` and `ANOTE` dictionaries
+inside the generator. To add a sheet or a reference point, add it there and
+run the generator with `--fetch`: it reads only the records that are not yet
+in `tools/data/`, refuses any map that is not `warped` or that serves no tile
+at its own centre, geocodes new anchors at Nominatim's one-request-a-second
+pace, and writes the measurements back before regenerating. Delete an entry
+from the data files to force it to be measured again.
 
 ## Where the maps come from
 
 Historical overlays come from two open georeferencing platforms, where
 contributors upload scans of old maps and align them by hand:
 
-- **[Map Warper](https://mapwarper.net/)** — 38 of the 41 sheets.
-- **[Wikimaps Warper](https://warper.wmflabs.org/)** — the three British
-  Admiralty charts of Table Bay, scanned by Wikimedia Commons.
+- **[Map Warper](https://mapwarper.net/)** — 41 of the 47 sheets.
+- **[Wikimaps Warper](https://warper.wmflabs.org/)** — six sheets scanned by
+  Wikimedia Commons: three British Admiralty charts of Table Bay, two of the
+  Tagus and Lisbon harbour, and the 1812 plan of Lisbon.
 
 Each overlay carries its own `archive`, `tiles` and `page` fields, so the
 gallery card, the map attribution and the Sources row all name the right
@@ -152,8 +167,18 @@ the honest boundary of what this prototype supports:
   Only four usable sheets exist across the platforms searched, and three are
   nautical charts rather than street maps. They are served by
   `warper.wmflabs.org`, which runs on Wikimedia Cloud Services — less
-  guaranteed uptime than `mapwarper.net`. If Cape Town goes blank, check that
-  host first.
+  guaranteed uptime than `mapwarper.net`. Three of Lisbon's six sheets (the
+  1812 plan and both Admiralty charts) come from the same host. If Cape Town
+  or half of Lisbon goes blank, check that host first.
+- **Lisbon's dated sheets are thin in the middle.** Between the 1812 plan
+  and the 1971 chart the only dated sheet is the 1871 Admiralty chart, and the
+  one detailed street survey (the sheet-by-sheet mosaic that looks like the
+  1904–11 municipal survey) carries no date in its record, so it is shown as
+  *undated*. The
+  1812 plan is a 1,263-pixel scan and runs out of detail at about zoom 14.
+  The second 1650 sheet is a 20th-century redrawing of the Tinoco plan,
+  included because the original is hard to read, not as independent
+  evidence.
 - **Reader-added maps are unreviewed and session-only.** The tile-serving
   check runs for them too, but title, date and description are whatever the
   archive record says, with no editorial pass. They vanish on tab close
@@ -162,14 +187,18 @@ the honest boundary of what this prototype supports:
 
 ## Verification performed
 
-- All 41 overlays were probed for real tile bytes at real viewing zooms before
+- All 47 overlays were probed for real tile bytes at real viewing zooms before
   being added; every one returned a non-empty PNG. Candidate maps that returned
-  empty tiles were dropped rather than shipped.
+  empty tiles were dropped rather than shipped. For Lisbon that meant dropping
+  Map Warper's `19716` ("Tinoco Lisboa") and the four "Lisboa 1911" sheet
+  fragments (`11902`, `12047`, `12048`, `16472`), all of which claim
+  `"status":"warped"` and answer every tile request with HTTP 500.
 - Two Istanbul sheets only serve tiles to zoom 14 and 15; their
   `maxNativeZoom` is set accordingly so Leaflet upscales instead of showing
-  blanks. The four Cape Town sheets are capped at the zoom where their scan
-  actually runs out of detail (z14–z18), so deep zooms upscale rather than
-  fetch tiles that hold no more information.
+  blanks. The four Cape Town sheets and all six Lisbon sheets are capped at
+  the zoom where their scan actually runs out of detail (z14–z18, worked out
+  from scan width against the ground distance the bounding box covers), so
+  deep zooms upscale rather than fetch tiles that hold no more information.
 - **Add a map** was verified end-to-end in-browser, not just at the API
   level: confirmed both archives are genuinely CORS-open (a real `fetch()`
   with a readable body, not just a status code from `curl`); added a real

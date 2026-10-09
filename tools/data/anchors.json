@@ -1,0 +1,238 @@
+{
+ "St Paul's Cathedral, London, UK": {
+  "lat": 51.513787,
+  "lon": -0.098451
+ },
+ "Tower of London, London, UK": {
+  "lat": 51.508217,
+  "lon": -0.076188
+ },
+ "Westminster Abbey, London, UK": {
+  "lat": 51.499399,
+  "lon": -0.127391
+ },
+ "London Bridge, London, UK": {
+  "lat": 51.508049,
+  "lon": -0.087671
+ },
+ "Temple Church, London, UK": {
+  "lat": 51.513257,
+  "lon": -0.110224
+ },
+ "Cathedrale Notre-Dame de Paris, France": {
+  "lat": 48.852937,
+  "lon": 2.35005
+ },
+ "Musee du Louvre, Paris, France": {
+  "lat": 48.861147,
+  "lon": 2.338028
+ },
+ "Pont Neuf, Paris, France": {
+  "lat": 48.857803,
+  "lon": 2.34192
+ },
+ "Hotel des Invalides, Paris, France": {
+  "lat": 48.855954,
+  "lon": 2.313343
+ },
+ "Place de la Concorde, Paris, France": {
+  "lat": 48.865572,
+  "lon": 2.321225
+ },
+ "Ile de la Cite, Paris, France": {
+  "lat": 48.854705,
+  "lon": 2.347485
+ },
+ "Colosseum, Rome, Italy": {
+  "lat": 41.890942,
+  "lon": 12.491903
+ },
+ "Pantheon, Rome, Italy": {
+  "lat": 41.898616,
+  "lon": 12.476833
+ },
+ "St Peter's Basilica, Vatican City": {
+  "lat": 41.902157,
+  "lon": 12.45371
+ },
+ "Castel Sant'Angelo, Rome, Italy": {
+  "lat": 41.903118,
+  "lon": 12.466343
+ },
+ "Tiber Island, Rome, Italy": {
+  "lat": 41.89047,
+  "lon": 12.477765
+ },
+ "Capitoline Hill, Rome, Italy": {
+  "lat": 41.892578,
+  "lon": 12.482215
+ },
+ "Hagia Sophia, Istanbul, Turkey": {
+  "lat": 41.008505,
+  "lon": 28.980011
+ },
+ "Topkapi Palace, Istanbul, Turkey": {
+  "lat": 41.011344,
+  "lon": 28.983203
+ },
+ "Galata Tower, Istanbul, Turkey": {
+  "lat": 41.025641,
+  "lon": 28.974213
+ },
+ "Suleymaniye Mosque, Istanbul, Turkey": {
+  "lat": 41.016229,
+  "lon": 28.963955
+ },
+ "Golden Horn, Istanbul, Turkey": {
+  "lat": 41.041155,
+  "lon": 28.945785
+ },
+ "Maiden's Tower, Istanbul, Turkey": {
+  "lat": 41.021138,
+  "lon": 29.004058
+ },
+ "Dome of the Rock, Jerusalem": {
+  "lat": 31.778017,
+  "lon": 35.235296
+ },
+ "Damascus Gate, Jerusalem": {
+  "lat": 31.781673,
+  "lon": 35.230453
+ },
+ "Jaffa Gate, Jerusalem": {
+  "lat": 31.776562,
+  "lon": 35.227271
+ },
+ "Church of the Holy Sepulchre, Jerusalem": {
+  "lat": 31.778352,
+  "lon": 35.229762
+ },
+ "Mount of Olives, Jerusalem": {
+  "lat": 31.779536,
+  "lon": 35.2418
+ },
+ "Tower of David, Jerusalem": {
+  "lat": 31.776039,
+  "lon": 35.228302
+ },
+ "Table Mountain, Cape Town, South Africa": {
+  "lat": -33.959063,
+  "lon": 18.403872
+ },
+ "Signal Hill, Cape Town, South Africa": {
+  "lat": -33.917003,
+  "lon": 18.403914
+ },
+ "Castle of Good Hope, Cape Town, South Africa": {
+  "lat": -33.925851,
+  "lon": 18.426726
+ },
+ "Company's Garden, Cape Town, South Africa": {
+  "lat": -33.927215,
+  "lon": 18.417334
+ },
+ "Grand Parade, Cape Town, South Africa": {
+  "lat": -33.924871,
+  "lon": 18.424797
+ },
+ "Table Bay, Cape Town, South Africa": {
+  "lat": -33.891667,
+  "lon": 18.459722
+ },
+ "Chhatrapati Shivaji Maharaj Terminus, Mumbai, India": {
+  "lat": 18.939856,
+  "lon": 72.835519
+ },
+ "Malabar Hill, Mumbai, India": {
+  "lat": 18.958162,
+  "lon": 72.803366
+ },
+ "Back Bay, Mumbai, India": {
+  "lat": 18.940555,
+  "lon": 72.811791
+ },
+ "Colaba, Mumbai, India": {
+  "lat": 18.915091,
+  "lon": 72.825969
+ },
+ "Mahim Bay, Mumbai, India": {
+  "lat": 19.03145,
+  "lon": 72.827425
+ },
+ "Mazagon, Mumbai, India": {
+  "lat": 18.96718,
+  "lon": 72.849801
+ },
+ "Zocalo, Mexico City, Mexico": {
+  "lat": 19.432647,
+  "lon": -99.133199
+ },
+ "Catedral Metropolitana, Mexico City, Mexico": {
+  "lat": 19.434382,
+  "lon": -99.133065
+ },
+ "Alameda Central, Mexico City, Mexico": {
+  "lat": 19.435716,
+  "lon": -99.143991
+ },
+ "Chapultepec Castle, Mexico City, Mexico": {
+  "lat": 19.420463,
+  "lon": -99.182087
+ },
+ "Templo Mayor, Mexico City, Mexico": {
+  "lat": 19.435062,
+  "lon": -99.131432
+ },
+ "Paseo de la Reforma, Mexico City, Mexico": {
+  "lat": 19.437388,
+  "lon": -99.145975
+ },
+ "Castelo de São Jorge, Lisboa, Portugal": {
+  "lat": 38.7139258,
+  "lon": -9.133483,
+  "resolved": "Castelo de São Jorge, Rua de Santa Cruz do Castelo, Castelo, Santa Maria Maior, Madalena, Lisboa, 1100-129, Portugal",
+  "osm": "way/1382432568"
+ },
+ "Sé de Lisboa, Lisboa, Portugal": {
+  "lat": 38.7098185,
+  "lon": -9.1328001,
+  "resolved": "Sé de Lisboa, Largo da Sé, Sé, Santa Maria Maior, Madalena, Lisboa, 1100-501, Portugal",
+  "osm": "relation/19372558"
+ },
+ "Praça do Comércio, Lisboa, Portugal": {
+  "lat": 38.7077151,
+  "lon": -9.1365238,
+  "resolved": "Praça do Comércio, São Nicolau, Santa Maria Maior, Madalena, Lisboa, 1100-148, Portugal",
+  "osm": "way/677181958"
+ },
+ "Praça Dom Pedro IV, Lisboa, Portugal": {
+  "lat": 38.7137564,
+  "lon": -9.1393431,
+  "resolved": "Praça Dom Pedro IV, Santa Justa, Santa Maria Maior, Madalena, Lisboa, Portugal",
+  "osm": "way/1317749306"
+ },
+ "Igreja do Carmo, Lisboa, Portugal": {
+  "lat": 38.712006,
+  "lon": -9.1405862,
+  "resolved": "Museu Arqueológico do Carmo, Largo do Carmo, Sacramento, Santa Maria Maior, Madalena, Lisboa, 1200-092, Portugal",
+  "osm": "node/5068486965"
+ },
+ "Mosteiro dos Jerónimos, Lisboa, Portugal": {
+  "lat": 38.6977531,
+  "lon": -9.2055912,
+  "resolved": "Mosteiro dos Jerónimos, Praça do Império, São Francisco Xavier, Belém, Lisboa, 1400-206, Portugal",
+  "osm": "relation/3258300"
+ },
+ "Torre de Belém, Lisboa, Portugal": {
+  "lat": 38.691586,
+  "lon": -9.2159288,
+  "resolved": "Torre de Belém, Avenida de Brasília, Pedrouços, São Francisco Xavier, Belém, Lisboa, 1400-038, Portugal",
+  "osm": "way/24341353"
+ },
+ "Doca de Alcântara, Lisboa, Portugal": {
+  "lat": 38.7005088,
+  "lon": -9.174486,
+  "resolved": "Doca de Alcântara, Prazeres, Estrela, Lisboa, 1300-353, Portugal",
+  "osm": "way/429696866"
+ }
+}

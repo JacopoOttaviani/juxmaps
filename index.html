@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>JuxMaps — old maps over the cities they became</title>
-<meta name="description" content="An interactive tool for researchers and journalists: juxtapose georeferenced historical maps on top of present-day maps of London, Paris, Rome, Istanbul, Jerusalem, Cape Town, Mumbai and Mexico City.">
+<meta name="description" content="An interactive tool for researchers and journalists: juxtapose georeferenced historical maps on top of present-day maps of London, Paris, Rome, Lisbon, Istanbul, Jerusalem, Cape Town, Mumbai and Mexico City.">
 <meta name="color-scheme" content="light dark">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -55,7 +55,7 @@
   <!-- ============================ HERO ============================ -->
   <section class="jm-hero">
     <div class="jm-wrap">
-      <p class="jm-kicker">Eight cities · 41 historical sheets</p>
+      <p class="jm-kicker">Nine cities · 47 historical sheets</p>
       <h1>Old maps, laid over <span>the cities they became</span>.</h1>
       <p class="jm-lede">
         JuxMaps stretches scanned historical maps onto their true geographic position, so you can
@@ -63,10 +63,10 @@
         and anyone curious about how a place got its shape.
       </p>
       <div class="jm-pills">
-        <span class="jm-pill"><b>8</b> cities</span>
-        <span class="jm-pill"><b>41</b> georeferenced maps</span>
-        <span class="jm-pill"><b>1550&ndash;1966</b> date range</span>
-        <span class="jm-pill"><b>47</b> reference points</span>
+        <span class="jm-pill"><b>9</b> cities</span>
+        <span class="jm-pill"><b>47</b> georeferenced maps</span>
+        <span class="jm-pill"><b>1550&ndash;1971</b> date range</span>
+        <span class="jm-pill"><b>55</b> reference points</span>
       </div>
     </div>
   </section>
@@ -304,7 +304,8 @@
       <p>
         Every historical overlay here is served from an open georeferencing platform, where
         contributors upload scans of old maps and align them by hand: <b>Map Warper</b> for most cities, and
-        <b>Wikimaps Warper</b> for the British Admiralty charts of Cape Town. Each entry below names its
+        <b>Wikimaps Warper</b> for the sheets scanned by Wikimedia Commons &mdash; the British Admiralty charts of
+        Cape Town and Lisbon, and Lisbon&rsquo;s 1812 plan. Each entry below names its
         archive and links back to the record, where you can see the scan, the contributor and the control
         points used.
       </p>
@@ -315,12 +316,12 @@
     <div class="jm-cred">
       <div class="jm-cred-c">
         <h4>Map Warper</h4>
-        <p>Open georeferencing platform by Tim Waters. Supplies the historical tile layers for seven of the eight cities.
+        <p>Open georeferencing platform by Tim Waters. Supplies most of the historical tile layers, for eight of the nine cities.
         <a href="https://mapwarper.net/" target="_blank" rel="noopener">mapwarper.net</a></p>
       </div>
       <div class="jm-cred-c">
         <h4>Wikimaps Warper &amp; Wikimedia Commons</h4>
-        <p>The Wikimedia-hosted instance of the same software, serving the British Admiralty charts of Table Bay.
+        <p>The Wikimedia-hosted instance of the same software, serving the British Admiralty charts of Table Bay and the Tagus, and the 1812 plan of Lisbon.
         <a href="https://warper.wmflabs.org/" target="_blank" rel="noopener">warper.wmflabs.org</a></p>
       </div>
       <div class="jm-cred-c">
@@ -359,7 +360,7 @@
         <span class="jm-name">Jux<em>Maps</em></span>
         <p>
           A working prototype for exploring how cities changed shape, by laying georeferenced
-          historical maps over the present day. Built across eight cities on five continents.
+          historical maps over the present day. Built across nine cities on five continents.
         </p>
       </div>
       <div>
@@ -377,6 +378,7 @@
           <li><a href="#london">London</a></li>
           <li><a href="#paris">Paris</a></li>
           <li><a href="#rome">Rome</a></li>
+          <li><a href="#lisbon">Lisbon</a></li>
           <li><a href="#istanbul">Istanbul</a></li>
           <li><a href="#jerusalem">Jerusalem</a></li>
           <li><a href="#capetown">Cape Town</a></li>
@@ -405,7 +407,7 @@
 <div class="jm-toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="assets/vendor/leaflet/leaflet.js"></script>
-<script src="assets/js/catalogue.js?v=5"></script>
+<script src="assets/js/catalogue.js?v=6"></script>
 <script src="assets/js/app.js?v=5"></script>
 </body>
 </html>

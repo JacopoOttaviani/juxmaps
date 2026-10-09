@@ -1,32 +1,85 @@
-# Generates assets/js/catalogue.js from measured mapwarper metadata + geocoded anchors.
-# Measured fields (bbox, center, thumb, zoom range, anchor lat/lon) are never hand-typed.
-import json, os, io, urllib.request
+#!/usr/bin/env python3
+"""Generates assets/js/catalogue.js.
 
-SP = os.environ["SP"]
-OUT = os.environ["OUT"]
+    python3 tools/gen_catalogue.py            regenerate from tools/data/*.json
+    python3 tools/gen_catalogue.py --fetch    first fetch anything missing from tools/data, then regenerate
+
+Measured fields (bounding boxes, centres, scan sizes, thumbnails, usable zoom,
+anchor coordinates) are never hand-typed. They are read from the archives'
+APIs and from OpenStreetMap Nominatim into tools/data/maps.json and
+tools/data/anchors.json, which are committed so the catalogue can be rebuilt
+offline. --fetch only touches records that are not in those files yet; delete
+an entry to force it to be measured again.
+
+Everything editorial — which sheets to keep, titles, notes, which landmarks to
+offer as reference points — lives in the dictionaries below.
+"""
+import io, json, math, os, sys, time, urllib.parse, urllib.request
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA = os.path.join(ROOT, "tools", "data")
+MAPS_PATH = os.path.join(DATA, "maps.json")
+ANCHORS_PATH = os.path.join(DATA, "anchors.json")
+OUT = os.path.join(ROOT, "assets", "js", "catalogue.js")
 UA = {"User-Agent": "JuxMaps-prototype/0.1"}
 
-final = json.load(open(os.path.join(SP, "final.json"), encoding="utf-8"))
-anchors = json.load(open(os.path.join(SP, "anchors.json"), encoding="utf-8"))
+ARCHIVES = {
+  "mw": dict(name="Map Warper", host="https://mapwarper.net"),
+  "wm": dict(name="Wikimaps Warper", host="https://warper.wmflabs.org"),
+}
 
-# Pull the three maps discovered after final.json was written.
-for mid in ("60811", "71780"):
-    if mid in final:
-        continue
-    r = urllib.request.Request("https://mapwarper.net/api/v1/maps/%s" % mid, headers=UA)
-    with urllib.request.urlopen(r, timeout=60) as x:
-        d = json.loads(x.read().decode())["data"]
+# An "empty" tile from either archive is a 334-byte transparent PNG; anything
+# carrying real scan pixels is tens of kilobytes.
+EMPTY_TILE_BYTES = 1024
+
+
+def get(url, timeout=60):
+    r = urllib.request.Request(url, headers=UA)
+    with urllib.request.urlopen(r, timeout=timeout) as x:
+        return x.read()
+
+
+def tile_xy(lat, lon, z):
+    n = 2 ** z
+    la = math.radians(lat)
+    return int((lon + 180) / 360 * n), int((1 - math.log(math.tan(la) + 1 / math.cos(la)) / math.pi) / 2 * n)
+
+
+def fetch_map(mid, arch):
+    """Read one record from its archive's API and prove it serves tiles."""
+    h = ARCHIVES[arch]["host"]
+    d = json.loads(get("%s/api/v1/maps/%s" % (h, mid)))["data"]
     a = d["attributes"]
-    p = [float(v) for v in a["bbox"].split(",")]
-    th = d["links"].get("thumb", "")
-    final[mid] = {
-        "city": "mexicocity", "title": a["title"], "desc": a.get("description") or "",
-        "date_depicted": a.get("date_depicted") or "", "source_uri": a.get("source_uri") or "",
-        "px": [a.get("width"), a.get("height")], "bbox": p,
-        "center": [round((p[1] + p[3]) / 2, 6), round((p[0] + p[2]) / 2, 6)],
-        "zoom_ok": list(range(11, 19)),
-        "thumb": ("https://mapwarper.net" + th) if th.startswith("/") else th,
-    }
+    if a.get("status") != "warped":
+        sys.exit("%s:%s is not warped (status=%r) — not added" % (arch, mid, a.get("status")))
+    bb = [float(v) for v in a["bbox"].split(",")]
+    center = [round((bb[1] + bb[3]) / 2, 6), round((bb[0] + bb[2]) / 2, 6)]
+    th = (d.get("links") or {}).get("thumb") or ""
+    if th.startswith("/"):
+        th = h + th
+    ok = []
+    for z in range(11, 20):
+        x, y = tile_xy(center[0], center[1], z)
+        try:
+            if len(get("%s/maps/tile/%s/%d/%d/%d.png" % (h, mid, z, x, y))) > EMPTY_TILE_BYTES:
+                ok.append(z)
+        except Exception:
+            pass
+    if not ok:
+        sys.exit("%s:%s claims to be warped but serves no tile at its own centre — not added" % (arch, mid))
+    return dict(archive=arch, title=a.get("title") or "", desc=a.get("description") or "",
+                date=a.get("date_depicted") or "", source=a.get("source_uri") or "",
+                px=[a.get("width"), a.get("height")], bbox=bb, center=center, thumb=th, max_zoom=max(ok))
+
+
+def geocode(q):
+    d = json.loads(get("https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" + urllib.parse.quote(q)))
+    if not d:
+        sys.exit("Nominatim found nothing for %r" % q)
+    r = d[0]
+    return dict(lat=float(r["lat"]), lon=float(r["lon"]), resolved=r.get("display_name", ""),
+                osm="%s/%s" % (r.get("osm_type"), r.get("osm_id")))
+
 
 # ---------------------------------------------------------------- editorial
 # year      : numeric key for sorting only
@@ -125,18 +178,116 @@ ED = {
       by="Compañía Litográfica y Tipográfica", note="Relief shown by hachures. The source sheet is torn and brittle at the folds."),
   "71780": dict(year=1955, label="1955", dated=True, title="Mexico City, 1955",
       by="Publisher not stated in the record", note="Mid-century sprawl across the valley — the widest extent in this set."),
+  # ---- Lisbon  (three Map Warper sheets, three from Wikimaps Warper; mnz caps at the scan's real resolution)
+  "77661": dict(year=1650, label="1650", dated=True, title="Planta de Lisboa em 1650 (the Tinoco plan)", mnz=17,
+      by="After João Nunes Tinoco; Museu de Lisboa copy", note="The earliest measured plan of the city, a century before the 1755 earthquake and the Pombaline rebuild flattened the Baixa."),
+  "78043": dict(year=1650, label="1650", dated=True, title="Lisboa em 1650, redrawn", mnz=16,
+      by="Mário Xavier de Brito, after Tinoco (Revista Municipal)", note="A 20th-century clean redrawing of the Tinoco plan — far easier to read than the original. Use it to decode the sheet above, not as independent evidence."),
+  "157": dict(year=1812, label="c.1812", dated=True, title="Plano geral da cidade de Lisboa em 1812", mnz=14,
+      by="Biblioteca Nacional de Portugal, via Wikimedia Commons", note="Post-earthquake Lisbon: the Pombaline grid is in place and the city still ends near Alcântara. A small scan — it runs out of detail at about zoom 14."),
+  "5795": dict(year=1871, label="1871", dated=True, title="Admiralty Chart 89: Entrance to the Tagus and Lisbon Harbour", mnz=15,
+      by="British Admiralty, via Wikimedia Commons", note="The estuary from the bar at the river mouth up to the city: soundings, forts and the shoreline before the port works began in 1887."),
+  "22024": dict(year=1911, label="undated", dated=False, title="Lisbon, assembled survey sheets", mnz=18,
+      by="Publisher not stated in the record", note="Carries no date or source in the record. The coloured 1:1000 sheets and their grid match the municipal survey of 1904–11; placed here by style, not evidence. The black areas are the scan’s margins outside the sheet grid, not the map."),
+  "6096": dict(year=1971, label="1971", dated=True, title="Admiralty Chart 3264: Port of Lisbon", mnz=16,
+      by="British Admiralty, via Wikimedia Commons", note="The modern port: Alcântara and Santos docks on filled riverbed, and the 1966 bridge across the Tagus. Set it against 1871 and the shoreline has moved."),
 }
 
-CITY_ORDER = ["london", "paris", "rome", "istanbul", "jerusalem", "capetown", "mumbai", "mexicocity"]
+CITY_ORDER = ["london", "paris", "rome", "lisbon", "istanbul", "jerusalem", "capetown", "mumbai", "mexicocity"]
 KEEP = {
   "london": ["86349", "78149", "107905", "91174", "55847", "31741"],
   "paris": ["87796", "12785", "84310", "21113", "79748", "108484"],
   "rome": ["42336", "9175", "106493", "85774", "108397", "67999"],
+  "lisbon": ["77661", "78043", "157", "5795", "22024", "6096"],
   "istanbul": ["105894", "52663", "81836", "101822", "49587"],
   "jerusalem": ["91816", "91812", "39933", "39934"],
   "capetown": ["38596", "7100", "5873", "4555"],
   "mumbai": ["39408", "42741", "34127", "54898", "29682"],
   "mexicocity": ["30271", "60811", "70242", "82837", "71780"],
+}
+
+# Which archive each sheet lives on. Anything not listed is on Map Warper.
+SOURCE = {
+  "7100": "wm", "5873": "wm", "4555": "wm",      # Cape Town — Admiralty charts via Wikimedia Commons
+  "157": "wm", "5795": "wm", "6096": "wm",       # Lisbon — 1812 plan and two Admiralty charts via Wikimedia Commons
+}
+
+# Reference points per city: (Nominatim query, kind). Order is display order.
+# Coordinates are resolved by Nominatim into tools/data/anchors.json, never typed here.
+ANCHORS = {
+ "london": [
+   ("St Paul's Cathedral, London, UK", "built"),
+   ("Tower of London, London, UK", "built"),
+   ("Westminster Abbey, London, UK", "built"),
+   ("London Bridge, London, UK", "water"),
+   ("Temple Church, London, UK", "built"),
+ ],
+ "paris": [
+   ("Cathedrale Notre-Dame de Paris, France", "built"),
+   ("Musee du Louvre, Paris, France", "built"),
+   ("Pont Neuf, Paris, France", "water"),
+   ("Hotel des Invalides, Paris, France", "built"),
+   ("Place de la Concorde, Paris, France", "built"),
+   ("Ile de la Cite, Paris, France", "water"),
+ ],
+ "rome": [
+   ("Colosseum, Rome, Italy", "built"),
+   ("Pantheon, Rome, Italy", "built"),
+   ("St Peter's Basilica, Vatican City", "built"),
+   ("Castel Sant'Angelo, Rome, Italy", "built"),
+   ("Tiber Island, Rome, Italy", "water"),
+   ("Capitoline Hill, Rome, Italy", "relief"),
+ ],
+ "lisbon": [
+   ("Castelo de São Jorge, Lisboa, Portugal", "built"),
+   ("Sé de Lisboa, Lisboa, Portugal", "built"),
+   ("Praça do Comércio, Lisboa, Portugal", "built"),
+   ("Praça Dom Pedro IV, Lisboa, Portugal", "built"),
+   ("Igreja do Carmo, Lisboa, Portugal", "built"),
+   ("Mosteiro dos Jerónimos, Lisboa, Portugal", "built"),
+   ("Torre de Belém, Lisboa, Portugal", "built"),
+   ("Doca de Alcântara, Lisboa, Portugal", "water"),
+ ],
+ "istanbul": [
+   ("Hagia Sophia, Istanbul, Turkey", "built"),
+   ("Topkapi Palace, Istanbul, Turkey", "built"),
+   ("Galata Tower, Istanbul, Turkey", "built"),
+   ("Suleymaniye Mosque, Istanbul, Turkey", "built"),
+   ("Golden Horn, Istanbul, Turkey", "water"),
+   ("Maiden's Tower, Istanbul, Turkey", "water"),
+ ],
+ "jerusalem": [
+   ("Dome of the Rock, Jerusalem", "built"),
+   ("Damascus Gate, Jerusalem", "built"),
+   ("Jaffa Gate, Jerusalem", "built"),
+   ("Church of the Holy Sepulchre, Jerusalem", "built"),
+   ("Mount of Olives, Jerusalem", "relief"),
+   ("Tower of David, Jerusalem", "built"),
+ ],
+ "capetown": [
+   ("Table Mountain, Cape Town, South Africa", "relief"),
+   ("Signal Hill, Cape Town, South Africa", "relief"),
+   ("Castle of Good Hope, Cape Town, South Africa", "built"),
+   ("Company's Garden, Cape Town, South Africa", "built"),
+   ("Grand Parade, Cape Town, South Africa", "built"),
+   ("Table Bay, Cape Town, South Africa", "water"),
+ ],
+ "mumbai": [
+   ("Chhatrapati Shivaji Maharaj Terminus, Mumbai, India", "built"),
+   ("Malabar Hill, Mumbai, India", "relief"),
+   ("Back Bay, Mumbai, India", "water"),
+   ("Colaba, Mumbai, India", "built"),
+   ("Mahim Bay, Mumbai, India", "water"),
+   ("Mazagon, Mumbai, India", "built"),
+ ],
+ "mexicocity": [
+   ("Zocalo, Mexico City, Mexico", "built"),
+   ("Catedral Metropolitana, Mexico City, Mexico", "built"),
+   ("Alameda Central, Mexico City, Mexico", "built"),
+   ("Chapultepec Castle, Mexico City, Mexico", "relief"),
+   ("Templo Mayor, Mexico City, Mexico", "built"),
+   ("Paseo de la Reforma, Mexico City, Mexico", "built"),
+ ],
 }
 
 CITY = {
@@ -149,6 +300,9 @@ CITY = {
  "rome": dict(name="Rome", country="Italy", zoom=13,
    blurb="Papal Rome to the wartime capital, over the plans that reshaped a city built on its own ruins.",
    story="Rome rewards juxtaposition because so much of it never moved: the Pantheon, the Colosseum and Castel Sant’Angelo sit where they sat in 1551. What changes is everything between them. Compare 1866 — papal Rome, five years before it became the Italian capital — with 1889, and the ministries, speculative quarters and Tiber embankments have arrived. The river is the anchor to distrust here: its banks were rebuilt from 1876."),
+ "lisbon": dict(name="Lisbon", country="Portugal", zoom=13,
+   blurb="Tinoco’s 1650 plan to the modern port, across the earthquake that erased the old city and the docks that pushed back the river.",
+   story="Lisbon’s break is 1755. The earthquake, fire and tsunami destroyed the Baixa, and Pombal’s engineers rebuilt it on a grid that ignored the old streets: slide between the 1650 Tinoco plan and the 1812 sheet and the medieval lanes between the castle and the river are replaced by straight blocks. The castle, the Sé and the Carmo convent sit still through all of it — the Carmo as a roofless ruin after 1755. The riverfront is the line not to trust. The Aterro da Boavista (1858–65) and the port works from 1887 filled in the Tagus foreshore west of the Praça do Comércio, so the two Admiralty charts disagree about where the water is."),
  "istanbul": dict(name="Istanbul", country="Türkiye", zoom=13,
    blurb="Late-Ottoman Istanbul through the Balkan Wars, the First World War and the end of empire.",
    story="A tight thirty-year window on a city about to change hands politically. The peninsula’s monuments — Hagia Sophia, Süleymaniye, Topkapı — are exceptionally good anchors because they are large, old and unmoved. The waterline of the Golden Horn is the feature to watch."),
@@ -214,6 +368,14 @@ ANOTE = {
  "Chapultepec Castle, Mexico City, Mexico": ("Chapultepec", "Hilltop castle from 1785, west of the historic centre.", 1785),
  "Templo Mayor, Mexico City, Mexico": ("Templo Mayor", "Aztec precinct, buried after 1521 and excavated from 1978.", 0),
  "Paseo de la Reforma, Mexico City, Mexico": ("Paseo de la Reforma", "Cut through from 1864 — absent on the 1793 sheet.", 1864),
+ "Castelo de São Jorge, Lisboa, Portugal": ("Castelo de São Jorge", "Moorish hilltop citadel, taken in 1147; its walls have kept their line on every sheet.", 1100),
+ "Sé de Lisboa, Lisboa, Portugal": ("Sé de Lisboa", "Begun 1147, just after the conquest; it came through the 1755 earthquake with its towers standing.", 1147),
+ "Praça do Comércio, Lisboa, Portugal": ("Praça do Comércio", "The riverside palace square (Terreiro do Paço) from c.1500; rebuilt as the Pombaline square after 1755.", 1500),
+ "Praça Dom Pedro IV, Lisboa, Portugal": ("Rossio", "The city’s main square since the Middle Ages; the Pombaline grid was laid out around it after 1755.", 1300),
+ "Igreja do Carmo, Lisboa, Portugal": ("Convento do Carmo", "Founded 1389. The church lost its roof in the 1755 earthquake and was left as a ruin — it stands whole on the 1650 sheet.", 1389),
+ "Mosteiro dos Jerónimos, Lisboa, Portugal": ("Mosteiro dos Jerónimos", "Begun 1501 at Belém, well west of the walled city; it fixes the western sheets.", 1501),
+ "Torre de Belém, Lisboa, Portugal": ("Torre de Belém", "Finished 1519 on an islet in the river; the shore has since advanced to meet it.", 1519),
+ "Doca de Alcântara, Lisboa, Portugal": ("Doca de Alcântara", "The 1887 docks, dug into reclaimed riverbed. On the 1650 and 1812 sheets this is open water.", 0),
 }
 
 # Features whose position genuinely moved between sheets. Named explicitly rather
@@ -225,7 +387,49 @@ CAUTION = {
  "Golden Horn, Istanbul, Turkey": "The quays were reshaped in the 20th century. Anchor on the monuments instead.",
  "Tiber Island, Rome, Italy": "The Tiber embankments were built from 1876 — the riverbanks are not a fixed line.",
  "Table Bay, Cape Town, South Africa": "The Foreshore was reclaimed from the 1930s — this shoreline moved a long way. Not a control point.",
+ "Doca de Alcântara, Lisboa, Portugal": "Built from 1887 on filled riverbed — the Tagus shoreline here moved several hundred metres. Not a control point.",
 }
+
+
+# ------------------------------------------------------------------- build
+maps = json.load(open(MAPS_PATH, encoding="utf-8")) if os.path.exists(MAPS_PATH) else {}
+anchors = json.load(open(ANCHORS_PATH, encoding="utf-8")) if os.path.exists(ANCHORS_PATH) else {}
+
+if "--fetch" in sys.argv[1:]:
+    changed = False
+    for cid in CITY_ORDER:
+        for mid in KEEP[cid]:
+            if mid in maps:
+                continue
+            arch = SOURCE.get(mid, "mw")
+            print("fetching %s:%s ..." % (arch, mid))
+            maps[mid] = fetch_map(mid, arch)
+            changed = True
+        for q, kind in ANCHORS[cid]:
+            if q in anchors:
+                continue
+            time.sleep(1.2)  # Nominatim asks for at most one request a second
+            print("geocoding %r ..." % q)
+            anchors[q] = geocode(q)
+            print("   -> %s, %s  (%s)" % (anchors[q]["lat"], anchors[q]["lon"], anchors[q]["resolved"][:80]))
+            changed = True
+    if changed:
+        os.makedirs(DATA, exist_ok=True)
+        json.dump(maps, open(MAPS_PATH, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+        json.dump(anchors, open(ANCHORS_PATH, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+
+# Validate before writing anything.
+seen = {}
+for cid in CITY_ORDER:
+    assert cid in CITY and cid in KEEP and cid in ANCHORS, "city %r is missing editorial data" % cid
+    for mid in KEEP[cid]:
+        assert mid in ED, "no ED entry for %s (%s)" % (mid, cid)
+        assert mid in maps, "no measured data for %s (%s) — run with --fetch" % (mid, cid)
+        assert mid not in seen, "sheet id %s is used by both %s and %s" % (mid, seen[mid], cid)
+        seen[mid] = cid
+    for q, kind in ANCHORS[cid]:
+        assert q in ANOTE, "no ANOTE entry for %r" % q
+        assert q in anchors, "no coordinates for %r — run with --fetch" % q
 
 
 def js(s):
@@ -240,61 +444,55 @@ w("   Nominatim. Titles, notes and anchor descriptions are editorial.\n")
 w("   Regenerate with tools/gen_catalogue.py. */\n\n")
 
 w("const JUX_BASEMAPS = [\n")
+ESRI_ATTR = 'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 BM = [
- ("carto-voyager", "Streets (Voyager)", "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>', 20, "abcd"),
- ("carto-light", "Minimal (light)", "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>', 20, "abcd"),
- ("carto-dark", "Minimal (dark)", "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>', 20, "abcd"),
+ ("esri-street", "Streets", "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}", ESRI_ATTR, 19),
+ ("esri-gray-light", "Minimal (light)", "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", ESRI_ATTR, 16),
+ ("esri-gray-dark", "Minimal (dark)", "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", ESRI_ATTR, 16),
  ("osm", "OpenStreetMap", "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', 19, ""),
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', 19),
  ("esri-imagery", "Satellite imagery", "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-  'Imagery &copy; Esri, Maxar, Earthstar Geographics', 19, ""),
+  'Imagery &copy; Esri, Maxar, Earthstar Geographics', 19),
  ("opentopo", "Topographic", "https://tile.opentopomap.org/{z}/{x}/{y}.png",
-  '&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA), &copy; OpenStreetMap contributors', 17, ""),
- ("blank", "None (old map only)", "", "", 20, ""),
+  '&copy; <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA), &copy; OpenStreetMap contributors', 17),
+ ("blank", "None (old map only)", "", "", 20),
 ]
-for i, (bid, name, url, attr, mx, sub) in enumerate(BM):
-    w("  { id:%s, name:%s, url:%s, attribution:%s, maxZoom:%d%s }%s\n" % (
-        js(bid), js(name), js(url), js(attr), mx,
-        (", subdomains:%s" % js(sub)) if sub else "", "," if i < len(BM) - 1 else ""))
+for i, (bid, name, url, attr, mx) in enumerate(BM):
+    w("  { id:%s, name:%s, url:%s, attribution:%s, maxZoom:%d }%s\n" % (
+        js(bid), js(name), js(url), js(attr), mx, "," if i < len(BM) - 1 else ""))
 w("];\n\n")
 
 w("const JUX_CITIES = [\n")
 for ci, cid in enumerate(CITY_ORDER):
     c = CITY[cid]
-    ancs = [a for a in anchors[cid] if a["q"] in ANOTE]
-    clat = round(sum(a["lat"] for a in ancs) / len(ancs), 5)
-    clon = round(sum(a["lon"] for a in ancs) / len(ancs), 5)
+    ancs = ANCHORS[cid]
+    clat = round(sum(anchors[q]["lat"] for q, _ in ancs) / len(ancs), 5)
+    clon = round(sum(anchors[q]["lon"] for q, _ in ancs) / len(ancs), 5)
     w("  {\n    id:%s, name:%s, country:%s,\n" % (js(cid), js(c["name"]), js(c["country"])))
     w("    center:[%s,%s], zoom:%d,\n" % (clat, clon, c["zoom"]))
     w("    blurb:%s,\n" % js(c["blurb"]))
     w("    story:%s,\n" % js(c["story"]))
     w("    anchors:[\n")
-    for i, a in enumerate(ancs):
-        nm, note, since = ANOTE[a["q"]]
+    for i, (q, kind) in enumerate(ancs):
+        nm, note, since = ANOTE[q]
         w("      { name:%s, kind:%s, lat:%s, lon:%s, since:%d, note:%s, caution:%s }%s\n" % (
-            js(nm), js(a["kind"]), a["lat"], a["lon"], since, js(note),
-            js(CAUTION.get(a["q"], "")), "," if i < len(ancs) - 1 else ""))
+            js(nm), js(kind), anchors[q]["lat"], anchors[q]["lon"], since, js(note),
+            js(CAUTION.get(q, "")), "," if i < len(ancs) - 1 else ""))
     w("    ],\n    overlays:[\n")
     ids = sorted(KEEP[cid], key=lambda m: ED[m]["year"])
     for i, mid in enumerate(ids):
-        f = final[mid]; e = ED[mid]
-        bb = f["bbox"]; zo = f["zoom_ok"]
-        mnz = max(zo) if zo else 18
+        f = maps[mid]; e = ED[mid]
+        bb = f["bbox"]
+        arch = ARCHIVES[f["archive"]]
+        tiles = "%s/maps/tile/%s/{z}/{x}/{y}.png" % (arch["host"], mid)
+        page = "%s/maps/%s" % (arch["host"], mid)
+        # cap at the zoom where the scan runs out of real detail, if declared
+        mnz = min(f["max_zoom"], e["mnz"]) if e.get("mnz") else f["max_zoom"]
         w("      {\n")
         w("        id:%s, year:%d, label:%s, dated:%s,\n" % (js(mid), e["year"], js(e["label"]), "true" if e["dated"] else "false"))
         w("        title:%s,\n        by:%s,\n        note:%s,\n" % (js(e["title"]), js(e["by"]), js(e["note"])))
-        # Overlays may come from more than one georeferencing archive.
-        tiles = f.get("tiles") or ("https://mapwarper.net/maps/tile/%s/{z}/{x}/{y}.png" % mid)
-        page = f.get("page") or ("https://mapwarper.net/maps/%s" % mid)
-        archive = f.get("archive") or "Map Warper"
-        # cap at the zoom where the scan runs out of real detail, if declared
-        if e.get("mnz"):
-            mnz = min(mnz, e["mnz"])
         w("        recordTitle:%s,\n" % js(f["title"]))
-        w("        archive:%s,\n" % js(archive))
+        w("        archive:%s,\n" % js(arch["name"]))
         w("        tiles:%s,\n" % js(tiles))
         w("        page:%s,\n" % js(page))
         w("        thumb:%s,\n" % js(f["thumb"]))
@@ -307,5 +505,6 @@ w("];\n")
 
 open(OUT, "w", encoding="utf-8").write(buf.getvalue())
 n_ov = sum(len(KEEP[c]) for c in CITY_ORDER)
-n_an = sum(len([a for a in anchors[c] if a["q"] in ANOTE]) for c in CITY_ORDER)
-print("wrote %s\ncities=%d overlays=%d anchors=%d bytes=%d" % (OUT, len(CITY_ORDER), n_ov, n_an, len(buf.getvalue())))
+n_an = sum(len(ANCHORS[c]) for c in CITY_ORDER)
+print("wrote %s\ncities=%d overlays=%d anchors=%d bytes=%d" % (
+    os.path.relpath(OUT, ROOT), len(CITY_ORDER), n_ov, n_an, len(buf.getvalue())))
